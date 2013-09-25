@@ -5,12 +5,12 @@
 %define	pkgname	method_source
 Summary:	Retrieve the source code for a method
 Name:		ruby-%{pkgname}
-Version:	0.8.1
+Version:	0.8.2
 Release:	1
 License:	MIT
 Group:		Development/Languages
 Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
-# Source0-md5:	-
+# Source0-md5:	106c9cae069647807ba1c795b5b9334c
 URL:		http://banisterfiend.wordpress.com/
 BuildRequires:	rpm-rubyprov
 BuildRequires:	rpmbuild(macros) >= 1.656
@@ -38,14 +38,18 @@ Documentation for %{name}
 %setup -q -n %{pkgname}-%{version}
 
 %build
+# write .gemspec
+%__gem_helper spec
+
 %if %{with tests}
 bacon test/test.rb
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{ruby_vendorlibdir}
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_specdir}}
 cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
+cp -p %{pkgname}-%{version}.gemspec $RPM_BUILD_ROOT%{ruby_specdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,3 +59,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.markdown LICENSE
 %{ruby_vendorlibdir}/method_source.rb
 %{ruby_vendorlibdir}/method_source
+%{ruby_specdir}/method_source-%{version}.gemspec
