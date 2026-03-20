@@ -1,0 +1,11 @@
+--- method_source-1.1.0/lib/method_source/code_helpers.rb.orig	2023-12-13 11:45:00.000000000 +0100
++++ method_source-1.1.0/lib/method_source/code_helpers.rb	2026-03-20 15:25:00.000000000 +0100
+@@ -123,7 +123,8 @@
+         /unexpected (\$end|end-of-file|end-of-input|END_OF_FILE)/, # mri, jruby, ruby-2.0, ironruby
+         /embedded document meets end of file/, # =begin
+         /unterminated (quoted string|string|regexp|list) meets end of file/, # "quoted string" is ironruby
++        /unterminated (quoted string|string|regexp|list)/, # ruby 3.4
+         /can't find string ".*" anywhere before EOF/, # rbx and jruby
+         /missing 'end' for/, /expecting kWHEN/ # rbx
+       ]
+ 

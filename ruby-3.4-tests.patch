@@ -1,0 +1,11 @@
+--- method_source-1.1.0/spec/method_source/code_helpers_spec.rb.orig	2023-12-13 11:45:00.000000000 +0100
++++ method_source-1.1.0/spec/method_source/code_helpers_spec.rb	2026-03-20 15:25:00.000000000 +0100
+@@ -32,7 +32,7 @@
+     ["puts )("],
+     ["1 1"],
+     ["puts :"]
+-  ] + (RbConfig::CONFIG['ruby_install_name'] == 'rbx' ? [] : [
++  ] + ((RbConfig::CONFIG['ruby_install_name'] == 'rbx' || RUBY_VERSION >= '3.4') ? [] : [
+     ["def", "method(1"], # in this case the syntax error is "expecting ')'".
+     ["o = Object.new.tap{ def o.render;","'MEH'", "}"] # in this case the syntax error is "expecting keyword_end".
+   ]).compact.each do |foo|
